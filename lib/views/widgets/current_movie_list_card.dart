@@ -9,7 +9,7 @@ import '../../models/current_movie/current_movie.dart';
 
 class CurrentMovieListCard extends StatelessWidget{
   final CurrentMovie movie;
-  CurrentMovieListCard({ required this.movie });
+  const CurrentMovieListCard({ required this.movie });
 
 
   @override
@@ -19,8 +19,9 @@ class CurrentMovieListCard extends StatelessWidget{
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
       child: GestureDetector(
-        onTap: () => Modular.to.navigate("/details-module/", arguments: movie.id),
+        onTap: () => Modular.to.pushNamed("/details-module/", arguments: movie.id),
         child: Card(
+          color: const Color(0x261D32),
           elevation: 5,
           child: Row(
             children: <Widget>[
@@ -52,6 +53,7 @@ class CurrentMovieListCard extends StatelessWidget{
                         softWrap: false,
                         style: const TextStyle(
                           fontSize: 16,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontFamily: "Lato"
                         ),
@@ -62,6 +64,7 @@ class CurrentMovieListCard extends StatelessWidget{
                     ),
                     RatingBarIndicator(
                       rating: stars,
+                      unratedColor: const Color.fromRGBO(26, 17, 37, 1),
                       itemBuilder: (context, index) => const Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -81,6 +84,7 @@ class CurrentMovieListCard extends StatelessWidget{
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 12,
+                          color: Colors.white,
                           fontFamily: "Lato"
                         ),
                       ),

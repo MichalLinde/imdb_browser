@@ -31,59 +31,80 @@ class _SecondPageState extends State<SecondPage>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Second page"),
-        actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () => Modular.to.navigate("/"),
-                child: const Icon(
-                  Icons.arrow_back,
-                  size: 26.0,
-                ),
-              )
-          )
-        ],
+        title: const Text("Details"),
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(26, 17, 37, 1),
       ),
-      body: Center(
-        child: BlocProvider(
-          create: (_) => movieDetailsCubit,
-          child: BlocListener<MovieDetailsCubit, MovieDetailsState>(
-            listener: (context, state){
-              if (state is MovieDetailsError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message!)),
-                );
+      body: BlocProvider(
+        create: (_) => movieDetailsCubit,
+        child: BlocListener<MovieDetailsCubit, MovieDetailsState>(
+          listener: (context, state){
+            if (state is MovieDetailsError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message!)),
+              );
+            }
+          },
+          child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+            builder: (context, state){
+              if (state is MovieDetailsInitial) {
+                return LoadingWidget();
+              } else if (state is MovieDetailsLoading) {
+                return LoadingWidget();
+              } else if (state is MovieDetailsLoaded) {
+                return _buildMovieDetails(context, state.movie);
+              } else if (state is MovieDetailsError) {
+                return Container();
+              } else {
+                return Container();
               }
             },
-            child: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-              builder: (context, state){
-                if (state is MovieDetailsInitial) {
-                  return LoadingWidget();
-                } else if (state is MovieDetailsLoading) {
-                  return LoadingWidget();
-                } else if (state is MovieDetailsLoaded) {
-                  return _buildMovieDetails(context, state.movie);
-                } else if (state is MovieDetailsError) {
-                  return Container();
-                } else {
-                  return Container();
-                }
-              },
-            ),
           ),
-        )
+        ),
       ),
     );
   }
 
   Widget _buildMovieDetails(BuildContext context, MovieDetails movie){
-    return Center(
-      child: Image.network(
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.network(
           movie.image.toString(),
-        width: 180,
-        height: 300,
-      )
+          fit: BoxFit.cover,
+        ),
+        DraggableScrollableSheet(
+          initialChildSize: 0.3,
+            minChildSize: 0.3,
+            maxChildSize: 0.8,
+            snap: false,
+            builder: (context, controller) => ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                color: Colors.black87,
+                child: SingleChildScrollView(
+                  controller: controller,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10,),
+                      const Icon(Icons.maximize_rounded, size: 50, color: Colors.white,),
+                      //const SizedBox(height: 20,),
+                      Text(
+                        movie.title.toString(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Lato",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+        )
+      ]
     );
   }
 }

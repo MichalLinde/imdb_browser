@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context){
     return Scaffold(
       //extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromRGBO(26, 17, 37, 1),
       // appBar: AppBar(
       //   elevation: 0,
       //   backgroundColor: Colors.white,
@@ -63,14 +63,14 @@ class _HomePageState extends State<HomePage>{
               title: const Text(
                 "IMDbrowser",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontFamily: "Lato",
                   fontWeight: FontWeight.bold
                 ),
               ),
               floating: true,
               snap: true,
-              backgroundColor: Colors.white,
+              backgroundColor: const Color.fromRGBO(26, 17, 37, 1),
               actions: <Widget>[
                   Padding(
                       padding: const EdgeInsets.only(right: 20.0),
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage>{
                         child: const Icon(
                           Icons.search,
                           size: 26.0,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       )
                   )
@@ -100,6 +100,7 @@ class _HomePageState extends State<HomePage>{
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 20,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Lato",
                       ),
@@ -119,6 +120,7 @@ class _HomePageState extends State<HomePage>{
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontSize: 20,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Lato",
                       ),
@@ -135,7 +137,20 @@ class _HomePageState extends State<HomePage>{
             ],
           ),
         ),
-      )
+      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: "Home"
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.search),
+      //       label: "Search"
+      //     )
+      //   ],
+      //   //currentIndex: _selectedIndex,
+      // ),
     );
   }
 

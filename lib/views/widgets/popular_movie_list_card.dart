@@ -15,10 +15,11 @@ class PopularMovieListCard extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       width: 160,
       child: GestureDetector(
-        onTap: () => Modular.to.navigate("/details-module/", arguments: movie.id),
+        onTap: () => Modular.to.pushNamed("/details-module/", arguments: movie.id),
         child: Column(
           children: <Widget>[
             Card(
+              color: Color.fromRGBO(26, 17, 37, 1),
               elevation: 10,
               child: Hero(
                 tag: movie.title.toString(),
@@ -41,6 +42,7 @@ class PopularMovieListCard extends StatelessWidget {
               movie.title.toString(),
               style: const TextStyle(
                 fontSize: 16,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Lato'
               ),
